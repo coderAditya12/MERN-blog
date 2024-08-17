@@ -25,6 +25,6 @@ Follow the steps below to set up the project:
    yarn create vite
 
 ## tailwind CSSsetUp:-
- - to set up Tailwind CSS in your Project,follow this[step-by-step guide](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).
+ - to set up Tailwind CSS in your Project,follow this [step-by-step guide](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).
 
  

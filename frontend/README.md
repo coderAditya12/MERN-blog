@@ -27,4 +27,22 @@ Follow the steps below to set up the project:
 ## tailwind CSSsetUp:-
  - to set up Tailwind CSS in your Project,follow this [step-by-step guide](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).
 
+### Step-by-Step Guide for Project Creation and Commit Management
+
+### Step-by-Step Guide for Project Creation and Commit Management
+
+1. **Pages**: In this blog app, three pages have been created:
+   1. **Home** page
+   2. **About Us** page
+   3. **Project** page
+
+2. **React Router**: Use React Router DOM to connect these pages together. To install React Router DOM, run the following command:
+
+   ```bash
+   yarn add react-router-dom
+
+
+
+
+
  

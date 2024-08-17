@@ -21,8 +21,8 @@ Follow the steps below to set up the project:
    ```bash
    npm install --global yarn
 2. **Create react Project with Vite**
-   
-  - yarn create vite (this command will create a react project for you.however it will ask some question.you can do it by reading the vite documentation)
+   ```bash 
+   yarn create vite
 
 # tailwing-setUp:-
  - here is given a step by step guidance[tailwindCss installation](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).

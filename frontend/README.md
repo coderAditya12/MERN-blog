@@ -1,19 +1,27 @@
-# MERN-Blog 
+# MERN-Blog
 
-I have made this project from scratch using the MERN tech Stack.
+This project is a full-stack blog application built from scratch using the MERN (MongoDB, Express.js, React, Node.js) tech stack.
 
-## Prerequest:-
- 1.Basics of Frontend
- 2. React Router Dom
- 3. tailwind CSS
- 4.knowledge about Api's
- 5.basics of Backend
- 6. should have knowledge about CRUD operation in MongoDB
+## Prerequisites
 
+Before you begin, make sure you have the following knowledge:
 
-## Project-setup:-
-  # use following yarn command to create projects
-  - npm install --global yarn(This command will install yarn in your system)
+1. **Frontend Basics:** Understanding of HTML, CSS, and JavaScript.
+2. **React Router:** Familiarity with React Router DOM for handling navigation within your application.
+3. **Tailwind CSS:** Basic knowledge of Tailwind CSS for applying utility-first styling to your components.
+4. **APIs:** Understanding how to make API requests and handle responses.
+5. **Backend Basics:** Basic knowledge of Node.js and Express.js for building server-side applications.
+6. **MongoDB CRUD Operations:** Understanding of how to perform Create, Read, Update, and Delete (CRUD) operations in MongoDB.
+
+## Project Setup
+
+Follow the steps below to set up the project:
+
+1. **Install Yarn:**
+   ```bash
+   npm install --global yarn
+2. **Create react Project with Vite**
+   
   - yarn create vite (this command will create a react project for you.however it will ask some question.you can do it by reading the vite documentation)
 
 # tailwing-setUp:-

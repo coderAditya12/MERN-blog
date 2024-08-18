@@ -24,13 +24,11 @@ Follow the steps below to set up the project:
    ```bash 
    yarn create vite
 
-## tailwind CSSsetUp:-
+## tailwindCSS setUp:-
  - to set up Tailwind CSS in your Project,follow this [step-by-step guide](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).
 
 ## FlowBite setup:-
  - Read this [step by step guide](https://flowbite-react.com/docs/getting-started/introduction)
-
-### Step-by-Step Guide for Project Creation and Commit Management
 
 ### Step-by-Step Guide for Project Creation and Commit Management
 
@@ -45,15 +43,6 @@ Follow the steps below to set up the project:
    yarn add react-router-dom
 
 3. **create component folder**: in this folder. we will create our componets.To create components:-
-  ### Creating the Header Component
-
-   1. **Install Flowbite and Flowbite-React:**
-
-      Run the following command to install the necessary dependencies:
-
-      ```bash
-      yarn add flowbite flowbite-react
-
 ### Components
 
 1.**header**

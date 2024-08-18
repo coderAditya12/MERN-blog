@@ -2,10 +2,10 @@ import { Button, Navbar, TextInput } from "flowbite-react";
 import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
       <Link
@@ -26,15 +26,29 @@ const Header = () => {
         />
       </form>
       <Button className="w-12 lg:hidden" color="gray" pill>
-        <AiOutlineSearch/>
+        <AiOutlineSearch />
       </Button>
 
-      <div>
-        <Button>
-          <FaMoon/>
+      <div className="flex gap-2 md:order-2">
+        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
+          <FaMoon />
         </Button>
+        <Link to="/sign-in">
+          <Button gradientDuoTone="purpleToBlue">Sign In</Button>
+        </Link>
+        <Navbar.Toggle></Navbar.Toggle>
       </div>
-     
+      <Navbar.Collapse>
+        <Navbar.Link active={path ==='/'} as={"div"}>
+          <Link to="/">Home</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path==='/about'} as={"div"}>
+          <Link to="/about">About</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path==='/project'} as={"div"}>
+          <Link to="/project">Projects</Link>
+        </Navbar.Link>
+      </Navbar.Collapse>
     </Navbar>
   );
 };

@@ -45,4 +45,4 @@ Follow the steps below to set up the project:
 3. **create component folder**: in this folder. we will create our componets.To create components:-
 ### Components
 
-1.**header**
+1.**header**:- built header component using flowbite components

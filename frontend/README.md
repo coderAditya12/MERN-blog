@@ -28,7 +28,7 @@ Follow the steps below to set up the project:
  - to set up Tailwind CSS in your Project,follow this [step-by-step guide](https://dev.to/ashirbadgudu/set-up-tailwind-css-with-create-react-app-and-yarn-pio).
 
 ## FlowBite setup:-
- -Read the this [step by step guide](https://flowbite-react.com/docs/getting-started/introduction)
+ - Read this [step by step guide](https://flowbite-react.com/docs/getting-started/introduction)
 
 ### Step-by-Step Guide for Project Creation and Commit Management
 

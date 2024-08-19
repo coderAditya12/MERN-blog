@@ -50,11 +50,11 @@ Follow the steps below to set up the project:
 2.**create server**:- Create server using express in index.js file. to install express add 
 ```bash
 yarn add express
+```
 
-
-
-3.**connect database**:- connect database with MongoDB using mongoose. 
+3. **connect database**:- connect database with MongoDB using mongoose. 
 
 ## mongoose install:-
  ```bash
  yarn add mongoose
+ ```

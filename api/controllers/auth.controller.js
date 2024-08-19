@@ -1,5 +1,6 @@
 const user = require("../models/user");
 const bcrypt = require("bcryptjs");
+const { errorHandler } = require("../utils/error");
 const signUp = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
@@ -12,7 +13,11 @@ const signUp = async (req, res, next) => {
       email === "" ||
       password === ""
     ) {
-      return res.status(400).json({ message: "All fields are required" });
+      return next(errorHandler(400, "All fields are required"));
+    }
+    const existingUser = await user.findOne({ email });
+    if (existingUser) {
+      return next(errorHandler(409, "Email already in use"));
     }
     const hashPassword = bcrypt.hashSync(password, 10); //for encryption
 

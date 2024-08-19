@@ -46,3 +46,7 @@ Follow the steps below to set up the project:
 ### Components
 
 1.**header**:- built header component using flowbite components
+
+2.**create server**:- Create server using express in index.js file 
+
+3.**connect database**:- connect database with MongoDB

@@ -62,3 +62,8 @@ yarn add express
 4.**user model**:- created the model using user schema in user.js file and export it.
 
 5.**test api**:- create a test api and follow the MVC to structure the files
+
+6.**sign up option**:- create a user to sign up and the data will be add into the 
+database and implemented some random error handling.
+
+7.**postman**:- to check Api use postman software

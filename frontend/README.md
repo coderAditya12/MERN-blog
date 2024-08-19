@@ -52,9 +52,11 @@ Follow the steps below to set up the project:
 yarn add express
 ```
 
-3. **connect database**:- connect database with MongoDB using mongoose. 
+3.**connect database**:- connect database with MongoDB using mongoose. 
 
 ## mongoose install:-
  ```bash
  yarn add mongoose
  ```
+
+4.**user model**:- created the model using user schema in user.js file and export it.

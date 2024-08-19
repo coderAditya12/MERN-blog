@@ -60,3 +60,5 @@ yarn add express
  ```
 
 4.**user model**:- created the model using user schema in user.js file and export it.
+
+5.**test api**:- create a test api and follow the MVC to structure the files

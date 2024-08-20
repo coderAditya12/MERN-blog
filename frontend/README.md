@@ -67,3 +67,5 @@ yarn add express
 database and implemented some random error handling.
 
 7.**postman**:- to check Api use postman software
+
+8.**sign up**:- design the sign up page using flowbite component and tailwindCSS

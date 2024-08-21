@@ -14,6 +14,8 @@ import DashBoard from "./pages/DashBoard";
 
 import SignIn from "./pages/SignIn";
 
+import FooterCom from "./components/footer";
+
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +28,7 @@ function App() {
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/project" element={<Projects />} />
       </Routes>
+      <FooterCom />
     </BrowserRouter>
   );
 }

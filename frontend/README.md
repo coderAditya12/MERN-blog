@@ -61,11 +61,17 @@ yarn add express
 
 4.**user model**:- created the model using user schema in user.js file and export it.
 
-5.**test api**:- create a test api and follow the MVC to structure the files
+5.**test api**:- create a test api and follow the MVC to structure the files.
 
 6.**sign up option**:- create a user to sign up and the data will be add into the 
 database and implemented some random error handling.
 
-7.**postman**:- to check Api use postman software
+7.**postman**:- to check Api use postman software.
 
-8.**sign up**:- design the sign up page using flowbite component and tailwindCSS
+8.**sign up**:- design the sign up page using flowbite component and tailwindCSS.
+
+9.**form handling**:- handling the form by adding functionality to sign up page.
+
+10.**connect frontend with backend**:- connected sign up page with backend api so user can sign up and the data can be stored in mongoDB.
+
+11.**Error handling**:- handle the errors and added loading effect so user can understand form is submitted and navigate to the sign in page.

@@ -79,3 +79,5 @@ database and implemented some random error handling.
 12.**create sign in route**:- create sign in route using jwt and bcrypt add error handling different kind of errors.
 
 13.**sign In page on frontend**:- add functionality in sign in page.
+
+14.**add redux toolkit**:- all the error handling and loading effect store in the react redux toolkit.

@@ -46,9 +46,9 @@ const signIn = async (req, res, next) => {
       return next(errorHandler(404, "user not found"));
     }
 
-    const validPassword = bcrypt.compare(password, validUser.password);
+    const validPassword = await bcrypt.compare(password, validUser.password);
     if (!validPassword) {
-      return next(errorHandler(404, "Invalid password"));
+      return next(errorHandler(400, "Invalid password"));
     }
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     //sending the data without password

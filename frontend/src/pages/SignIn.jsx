@@ -1,13 +1,20 @@
-import React from 'react'
+import React from "react";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
-import  { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  signInStart,
+  signInFailure,
+  signInSuccess,
+} from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { FaCloudShowersHeavy } from "react-icons/fa";
 
 const SignIn = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -15,27 +22,28 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if ( !formData.email || !formData.password) {
-      return setError("please fill out all the fields");
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFailure("Please fill all the fields"));
     }
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      if (res.status === 409) {
-        return setError(data.message);
+      console.log(data);
+      if (data.success===false) {
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
+
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      setError(error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -57,7 +65,6 @@ const SignIn = () => {
         {/* right side */}
         <div className="flex-1">
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-           
             <div>
               <Label value="Your email" />
               <TextInput
@@ -108,4 +115,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn
+export default SignIn;

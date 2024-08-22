@@ -75,3 +75,5 @@ database and implemented some random error handling.
 10.**connect frontend with backend**:- connected sign up page with backend api so user can sign up and the data can be stored in mongoDB.
 
 11.**Error handling**:- handle the errors and added loading effect so user can understand form is submitted and navigate to the sign in page.
+
+12.**create sign in route**:- create sign in route using jwt and bcrypt add error handling different kind of errors.

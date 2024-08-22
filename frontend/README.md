@@ -81,3 +81,13 @@ database and implemented some random error handling.
 13.**sign In page on frontend**:- add functionality in sign in page.
 
 14.**add redux toolkit**:- all the error handling and loading effect store in the react redux toolkit.
+
+## IMPORTANT:-
+
+15.**Redux persistent**:- To persist the state of our application use redux-persist package.
+
+ ### install persist packeage :- 
+ ```bash
+ yarn add redux-persist
+ ```
+ 

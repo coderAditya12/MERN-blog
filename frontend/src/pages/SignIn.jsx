@@ -9,6 +9,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FaCloudShowersHeavy } from "react-icons/fa";
+import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,8 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
-      if (data.success===false) {
+      // console.log(data);
+      if (data.success === false) {
         dispatch(signInFailure(data.message));
       }
 
@@ -97,6 +98,7 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5 ">
             <span>Don't have an account?</span>

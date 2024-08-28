@@ -90,4 +90,5 @@ database and implemented some random error handling.
  ```bash
  yarn add redux-persist
  ```
+16.**google auth**:- make project on firebase and use authentication using google firebase authentication.it will check if the user is already present then it will login otherwise it will create new schema and log in.
  

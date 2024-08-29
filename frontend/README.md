@@ -96,4 +96,6 @@ database and implemented some random error handling.
 
 18.**dark mode**:- applied dark mode fuctionality using redux store.
 
+19.**private dashboard**:- make the dashboard private using useSelector hook.only log in user can acces the dashboard.
+
  

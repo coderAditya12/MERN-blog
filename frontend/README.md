@@ -91,4 +91,9 @@ database and implemented some random error handling.
  yarn add redux-persist
  ```
 16.**google auth**:- make project on firebase and use authentication using google firebase authentication.it will check if the user is already present then it will login otherwise it will create new schema and log in.
+
+17.**add user profile**:- update the header component using google auth and profile of the user.added drop down menu 
+
+18.**dark mode**:- applied dark mode fuctionality using redux store.
+
  

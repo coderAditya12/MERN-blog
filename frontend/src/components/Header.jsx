@@ -12,6 +12,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOut } from "../redux/user/userSlice";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -68,7 +69,7 @@ const Header = () => {
               <Dropdown.Item>profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item >Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">

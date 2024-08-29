@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
 import { HiArrowSmRight, HiUserCircle } from "react-icons/hi";
+import { Link, useLocation } from "react-router-dom";
 const DashSidebar = () => {
+  const location = useLocation();
+  const [tab, setTab] = useState();
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tabFormUrl = urlParams.get("tab");
+    if (tabFormUrl) {
+      setTab(tabFormUrl);
+    }
+  }, [location.search]);
   return (
-    <Sidebar>
+    <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item
-            active
-            icon={HiUserCircle}
-            label={"User"}
-            labelColor="dark"
-          >
-            Profile
-          </Sidebar.Item>
-          <Sidebar.Item active icon={HiArrowSmRight}>
+          <Link to="/dashboard?tab=profile">
+            <Sidebar.Item
+              active={tab === "profile"}
+              icon={HiUserCircle}
+              label={"User"}
+              labelColor="dark"
+            >
+              Profile
+            </Sidebar.Item>
+          </Link>
+
+          <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer">
             Sign Out
           </Sidebar.Item>
         </Sidebar.ItemGroup>

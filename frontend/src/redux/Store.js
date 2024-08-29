@@ -4,10 +4,12 @@ import userReducer from "./user/userSlice"; // Import the code that handles user
 import { persistReducer } from "redux-persist"; // Tool to save our app's data so it doesn't disappear when we refresh the page
 import storage from "redux-persist/lib/storage"; // Uses the browser's local storage to save data
 import persistStore from "redux-persist/es/persistStore"; // Tool to handle saving and loading the data
+import themeReducer from "./theme/themeSlice";
 
 // Combine all the data-handling codes into one
 const rootReducer = combineReducers({
   user: userReducer, // Handles data related to the user
+  theme: themeReducer,
 });
 
 // Set up how we want to save the data

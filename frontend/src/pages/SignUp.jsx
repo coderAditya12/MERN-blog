@@ -30,8 +30,8 @@ const SignUp = () => {
         return setError(data.message);
       }
       setLoading(false);
-      if(res.ok){
-        navigate('/sign-in')
+      if (res.ok) {
+        navigate("/sign-in");
       }
     } catch (error) {
       setError(error.message);
@@ -98,7 +98,7 @@ const SignUp = () => {
                 "Sign Up"
               )}
             </Button>
-            <OAuth/>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5 ">
             <span>Have an account?</span>

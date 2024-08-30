@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const { default: mongoose } = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -20,6 +21,7 @@ const authRoute = require("./routes/auth.route");
 
 //Middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);

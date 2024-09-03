@@ -9,6 +9,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+import {Link} from 'react-router-dom'
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {
@@ -25,7 +26,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 // This is the main component for the user's profile dashboard
 const DashProfile = () => {
   // Get the current user's information from the app's state
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   // Set up variables to manage the profile picture
@@ -148,21 +149,19 @@ const DashProfile = () => {
   };
   const handleSignOut = async () => {
     try {
-      const res = await fetch('/api/user/signout',{
-        method:'POST',
-
-      })
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
       const data = await res.json();
-      if (res.ok){
+      if (res.ok) {
         dispatch(signOutSuccess());
-      }
-      else{
+      } else {
         console.log(data.message);
       }
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   // This is what the component displays
   return (
@@ -234,16 +233,33 @@ const DashProfile = () => {
           onChange={handleUpdateChange}
         />
         {/* Button to submit the form */}
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToBlue"
+          outline
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? "Loading..." : "Update"}
         </Button>
-        {/* Options to delete account or sign out */}
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span className="cursor-pointer" onClick={() => setShowModel(true)}>
           Delete Account
         </span>
-        <span className="cursor-pointer" onClick={handleSignOut}>Sign Out</span>
+        <span className="cursor-pointer" onClick={handleSignOut}>
+          Sign Out
+        </span>
       </div>
       {updateUserSuccess && (
         <Alert color="success" className="mt-5">

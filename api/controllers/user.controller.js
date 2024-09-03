@@ -36,8 +36,9 @@ const updateUser = async (req, res, next) => {
     }
   }
   try {
-    const updateUser = await user.findByIdAndUpdate(
+    const updateUser = await user.findByIdAndDelete(
       req.params.userId,
+
       {
         $set: {
           username: req.body.username,

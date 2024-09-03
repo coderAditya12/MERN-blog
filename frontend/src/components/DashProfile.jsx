@@ -24,7 +24,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 // This is the main component for the user's profile dashboard
 const DashProfile = () => {
   // Get the current user's information from the app's state
-  const { currentUser,error } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   // Set up variables to manage the profile picture

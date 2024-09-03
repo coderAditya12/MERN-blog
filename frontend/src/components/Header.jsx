@@ -69,7 +69,7 @@ const Header = () => {
               <Dropdown.Item>profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item >Sign Out</Dropdown.Item>
+            <Dropdown.Item>Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">

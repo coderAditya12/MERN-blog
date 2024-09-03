@@ -98,4 +98,8 @@ database and implemented some random error handling.
 
 19.**private dashboard**:- make the dashboard private using useSelector hook.only log in user can acces the dashboard.
 
+20.**update profile**:- added the feature to update the profile and also profile picture using firebase storage.
+
+21.**delete account**:- account deleted feature added.once the account is deleted user can't regain it's account. user need to sign up again
+
  

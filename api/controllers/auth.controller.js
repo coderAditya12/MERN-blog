@@ -50,7 +50,7 @@ const signIn = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id, validUser:isAdmin }, process.env.JWT_SECRET);
     //sending the data without password
     const { password: pass, ...rest } = validUser._doc;
     res
@@ -70,7 +70,10 @@ const googleAuth = async (req, res, next) => {
   try {
     const googleUser = await user.findOne({ email });
     if (googleUser) {
-      const token = jwt.sign({ id: googleUser._id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: googleUser._id, Admin: googleUser.isAdmin },
+        process.env.JWT_SECRET
+      );
       const { password, ...rest } = googleUser._doc;
       res
         .status(200)
@@ -92,7 +95,7 @@ const googleAuth = async (req, res, next) => {
         password: hashPassword,
         profilePicture: googlePhotoUrl,
       });
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin }, process.env.JWT_SECRET);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)

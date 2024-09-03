@@ -102,4 +102,6 @@ database and implemented some random error handling.
 
 21.**delete account**:- account deleted feature added.once the account is deleted user can't regain it's account. user need to sign up again
 
+22.**admin functionality**:- admin functionality has beed added. in which admin can create post on create post route.loading effect has been added into update button.
+
  

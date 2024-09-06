@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 const verifyToken = require("../utils/verifyUser");
 const {
   test,
@@ -7,6 +6,7 @@ const {
   deleteUser,
   signOut,
 } = require("../controllers/user.controller");
+const router = express.Router();
 router.get("/test", test);
 router.put("/update/:userId", verifyToken, updateUser);
 router.delete('/delete/:userId',verifyToken,deleteUser)

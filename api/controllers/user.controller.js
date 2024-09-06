@@ -6,6 +6,9 @@ const test = (req, res) => {
 };
 
 const updateUser = async (req, res, next) => {
+  if (!req.user) {
+    return next(errorHandler(401, "Unauthorized"));
+  }
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "you are not allowed to update this user"));
   }
@@ -36,7 +39,7 @@ const updateUser = async (req, res, next) => {
     }
   }
   try {
-    const updateUser = await user.findByIdAndDelete(
+    const updateUser = await user.findByIdAndUpdate(
       req.params.userId,
 
       {
@@ -56,6 +59,8 @@ const updateUser = async (req, res, next) => {
   }
 };
 const deleteUser = async (req, res, next) => {
+  console.log("Authorization Header:", req.cookies.access_token);
+  console.log("req.user:", req.user);
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to delete this user."));
   }
@@ -63,16 +68,16 @@ const deleteUser = async (req, res, next) => {
     await user.findByIdAndDelete(req.params.userId);
     res.status(200).json("User deleted successfully");
   } catch (error) {
-    next(errorHandler(400, error));
+    return next(error);
   }
 };
 
-const signOut = (req,res,next)=>{
-try {
-  res.clearCookie("access_token");
-  res.status(200).json("User signed out successfully");
-} catch (error) {
-  next(error)
-}
-}
-module.exports = { test, updateUser, deleteUser,signOut };
+const signOut = (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("User signed out successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { test, updateUser, deleteUser, signOut };

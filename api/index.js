@@ -1,7 +1,9 @@
 const express = require("express");
-const app = express();
 const cookieParser = require("cookie-parser");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const userRoute = require("./routes/user.route");
+const authRoute = require("./routes/auth.route");
+const postRoute = require("./routes/post.route");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -16,8 +18,7 @@ mongoose
   });
 
 //routes
-const userRoute = require("./routes/user.route");
-const authRoute = require("./routes/auth.route");
+const app = express();
 
 //Middleware
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/post", postRoute);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "internal server error";
@@ -36,5 +38,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(2323, () => {
-  console.log("server is running on port 3000!!");
+  console.log("server is running on port 2323!!");
 });

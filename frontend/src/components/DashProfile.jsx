@@ -9,7 +9,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {
@@ -135,7 +135,6 @@ const DashProfile = () => {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
-        headers: { "content-type": "application/json" },
       });
       const data = await res.json();
       if (!res.ok) {
@@ -287,7 +286,7 @@ const DashProfile = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
             <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
-              Are you sure you want to dele{" "}
+              Are you sure you want to delete your account
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={handleDeleteuser}>

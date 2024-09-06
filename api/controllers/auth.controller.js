@@ -50,9 +50,10 @@ const signIn = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
-    const token = jwt.sign({ id: validUser._id, validUser:isAdmin }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id, isAdmin:validUser.isAdmin }, process.env.JWT_SECRET);
     //sending the data without password
     const { password: pass, ...rest } = validUser._doc;
+    console.log(token);
     res
       .status(200)
       .cookie("access_token", token, {
@@ -74,6 +75,7 @@ const googleAuth = async (req, res, next) => {
         { id: googleUser._id, Admin: googleUser.isAdmin },
         process.env.JWT_SECRET
       );
+      console.log(token);
       const { password, ...rest } = googleUser._doc;
       res
         .status(200)
@@ -96,6 +98,7 @@ const googleAuth = async (req, res, next) => {
         profilePicture: googlePhotoUrl,
       });
       const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin }, process.env.JWT_SECRET);
+      console.log(token);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)

@@ -50,7 +50,10 @@ const signIn = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
-    const token = jwt.sign({ id: validUser._id, isAdmin:validUser.isAdmin }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      process.env.JWT_SECRET
+    );
     //sending the data without password
     const { password: pass, ...rest } = validUser._doc;
     console.log(token);
@@ -58,6 +61,9 @@ const signIn = async (req, res, next) => {
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+        // or
+        // maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
       })
       .json(rest);
     return;
@@ -81,6 +87,9 @@ const googleAuth = async (req, res, next) => {
         .status(200)
         .cookie("access_token", token, {
           httpOnly: true,
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          // or
+          // maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
         })
         .json(rest);
       return;
@@ -97,13 +106,19 @@ const googleAuth = async (req, res, next) => {
         password: hashPassword,
         profilePicture: googlePhotoUrl,
       });
-      const token = jwt.sign({ id: newUser._id,isAdmin:newUser.isAdmin }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECRET
+      );
       console.log(token);
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
         .cookie("access_token", token, {
           httpOnly: true,
+          expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          // or
+          // maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
         })
         .json(rest);
       return;

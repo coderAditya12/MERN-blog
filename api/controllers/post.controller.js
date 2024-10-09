@@ -2,8 +2,10 @@ const { errorHandler } = require("../utils/error");
 const Post = require("../models/post");
 
 const create = async (req, res, next) => {
+  console.log(req.user);
+  console.log(req.user.Admin);
   try {
-    if (!req.user || !req.user.isAdmin) {
+    if (!req.user || !req.user.Admin) {
       return next(errorHandler(403, "You are not allowed to create a post"));
     }
     if (!req.body.title || !req.body.content) {

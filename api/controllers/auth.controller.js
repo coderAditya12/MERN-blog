@@ -61,7 +61,7 @@ const signIn = async (req, res, next) => {
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+        expires: new Date(Date.now() + 72 * 60 * 60 * 1000), // 24 hours
         // or
         // maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
       })

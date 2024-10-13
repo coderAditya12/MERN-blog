@@ -58,7 +58,7 @@ const getposts = async (req, res, next) => {
     );
     const lastMonthPosts = await Post.countDocuments();
     {
-      createdAt: {
+      created: {
         $gte: oneMonthAgo;
       }
     }

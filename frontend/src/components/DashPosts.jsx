@@ -1,10 +1,11 @@
 import { Table, TableCell } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
+  const [showMore, setShowMore] = useState(true);
   console.log(userPosts);
   useEffect(() => {
     const fetchPosts = async () => {
@@ -13,6 +14,9 @@ const DashPosts = () => {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          if (data.posts.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error.message);
@@ -22,8 +26,23 @@ const DashPosts = () => {
       fetchPosts();
     }
   }, [currentUser._id]);
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length;
+    try {
+      const res = await fetch(
+        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts((prev) => [...prev, ...data.posts]);
+        if(data.posts.length<9){
+          showMorePosts(false);
+        }
+      }
+    } catch (error) {}
+  };
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700">
+    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 md:w-full">
       {currentUser.isAdmin && userPosts.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
@@ -53,19 +72,39 @@ const DashPosts = () => {
                     </Link>
                   </Table.Cell>
                   <TableCell>
-                    <Link to ={`/post/${post.slug}`} className="font-medium text-gray-900 dark:text-white">{post.title}</Link>
+                    <Link
+                      to={`/post/${post.slug}`}
+                      className="font-medium text-gray-900 dark:text-white"
+                    >
+                      {post.title}
+                    </Link>
                   </TableCell>
                   <TableCell>{post.category}</TableCell>
                   <TableCell>
-                    <span className="font-medium text-red-500 hover:underline cursor-pointer">Delete</span>
+                    <span className="font-medium text-red-500 hover:underline cursor-pointer">
+                      Delete
+                    </span>
                   </TableCell>
                   <TableCell>
-                    <Link to={`/update-post/${post._id}`} className="text-teal-500"><span>Edit</span></Link>
+                    <Link
+                      to={`/update-post/${post._id}`}
+                      className="text-teal-500"
+                    >
+                      <span>Edit</span>
+                    </Link>
                   </TableCell>
                 </Table.Row>
               </Table.Body>
             ))}
           </Table>
+          {showMore && (
+            <button
+              className="w-full text-teal-500 self-center text-sm py-2"
+              onClick={handleShowMore}
+            >
+              Show more
+            </button>
+          )}
         </>
       ) : (
         <p>You have no posts yet!</p>

@@ -88,7 +88,7 @@ const UpdatePost = async (req, res, next) => {
       {
         $set: {
           title: req.body.title,
-          contnet: req.body.contnet,
+          content: req.body.content,
           category: req.body.category,
           image: req.body.image,
         },

@@ -51,7 +51,7 @@ const signIn = async (req, res, next) => {
       return next(errorHandler(400, "Invalid password"));
     }
     const token = jwt.sign(
-      { id: validUser._id, isAdmin: validUser.isAdmin },
+      { id: validUser._id, Admin: validUser.isAdmin },
       process.env.JWT_SECRET
     );
     //sending the data without password

@@ -16,11 +16,20 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+const cors = require("cors");
+
+
 
 //routes
 const app = express();
 
 //Middleware
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Replace this with the Vite development server URL
+    credentials: true, // Allow cookies to be sent with requests
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

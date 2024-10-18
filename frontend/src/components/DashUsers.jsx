@@ -43,7 +43,19 @@ const DashUsers = () => {
       console.log(error.message);
     }
   };
-  const handleDeleteUser = () => {};
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if(res.ok){
+        setUsers((prev)=>{prev.filter((user)=>user._id!==userIdToDelete)});
+        setShowModel(false);
+      }
+    } catch (error) {console.log(error.message)}
+
+  };
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 md:w-full">
       {currentUser.isAdmin && users.length > 0 ? (
@@ -57,7 +69,7 @@ const DashUsers = () => {
               <Table.HeadCell>Delete </Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
-              <Table.Body className="divide-y" >
+              <Table.Body className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(user.createdAt).toLocaleDateString()}

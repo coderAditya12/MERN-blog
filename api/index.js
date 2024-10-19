@@ -5,6 +5,7 @@ const userRoute = require("./routes/user.route");
 const authRoute = require("./routes/auth.route");
 const postRoute = require("./routes/post.route");
 const dotenv = require("dotenv");
+const commentRoute = require("./routes/comment.route")
 dotenv.config();
 
 //mongoDB connected
@@ -17,8 +18,6 @@ mongoose
     console.log(err);
   });
 const cors = require("cors");
-
-
 
 //routes
 const app = express();
@@ -36,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
+app.use("/api/comment", commentRoute);
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "internal server error";

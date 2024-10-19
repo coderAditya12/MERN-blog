@@ -5,9 +5,32 @@ import { Link } from "react-router-dom";
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState("");
-  const handleSubmit = async (e)=>{
-    
-  }
+  console.log("Post ID:", postId); // Add this line to check the postId
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (comments.length > 200) {
+      return;
+    }
+    const res = await fetch("/api/comment/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: comments,
+        postId,
+        userId: currentUser._id,
+      }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setComments(""); // Clear the comment input
+    } else {
+      // You can log the error or show an alert/message to the user
+      console.error("Failed to submit comment:", data);
+    }
+  };
   return (
     <div className="max-w-2xl mx-auto w-full p-3 ">
       {currentUser ? (
@@ -34,7 +57,10 @@ const CommentSection = ({ postId }) => {
         </div>
       )}
       {currentUser && (
-        <form className="border border-teal-500 rounded-md p-3" onSubmit={handleSubmit}>
+        <form
+          className="border border-teal-500 rounded-md p-3"
+          onSubmit={handleSubmit}
+        >
           <Textarea
             placeholder="Add a comment..."
             rows="3"
@@ -43,7 +69,9 @@ const CommentSection = ({ postId }) => {
             value={comments}
           />
           <div className="flex justify-between items-center mt-5">
-            <p className="text-gray-500 text-xs">{200 - comments.length} characters remaining</p>
+            <p className="text-gray-500 text-xs">
+              {200 - comments.length} characters remaining
+            </p>
             <Button outline gradientDuoTone="purpleToBlue" type="submit">
               Submit
             </Button>

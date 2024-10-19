@@ -1,4 +1,5 @@
-import { Button, Textarea, TextInput } from "flowbite-react";
+import { Alert, Button, Textarea, TextInput } from "flowbite-react";
+import { set } from "mongoose";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,29 +7,32 @@ const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState("");
   console.log("Post ID:", postId); // Add this line to check the postId
+  const [commentError, setcommentError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (comments.length > 200) {
       return;
     }
-    const res = await fetch("/api/comment/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: comments,
-        postId,
-        userId: currentUser._id,
-      }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      setComments(""); // Clear the comment input
-    } else {
-      // You can log the error or show an alert/message to the user
-      console.error("Failed to submit comment:", data);
+    try {
+      const res = await fetch("/api/comment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: comments,
+          postId,
+          userId: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setComments("");
+        setcommentError(null);
+      }
+    } catch (error) {
+      setcommentError(error.message);
     }
   };
   return (
@@ -76,6 +80,11 @@ const CommentSection = ({ postId }) => {
               Submit
             </Button>
           </div>
+          {commentError && (
+            <Alert color="failure" className="mt-5">
+              {commentError}
+            </Alert>
+          )}
         </form>
       )}
     </div>

@@ -1,5 +1,5 @@
 const comment = require("../models/comment.model");
-const {errorHandler} = require('../utils/error');
+const { errorHandler } = require("../utils/error");
 const createComment = async (req, res, next) => {
   try {
     const { content, postId, userId } = req.body;
@@ -18,4 +18,15 @@ const createComment = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { createComment };
+
+const getPostComment = async (req, res, next) => {
+  try {
+    const comments = await comment
+      .find({ postId: req.params.postId })
+      .sort({ createdAt: -1 });
+    res.status(200).json(comments);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { createComment, getPostComment };

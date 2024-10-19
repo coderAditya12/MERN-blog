@@ -1,13 +1,13 @@
 import { Alert, Button, Textarea, TextInput } from "flowbite-react";
 import { set } from "mongoose";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState("");
-  console.log("Post ID:", postId); // Add this line to check the postId
   const [commentError, setcommentError] = useState(null);
+  const [totalComments, settotalComments] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +35,23 @@ const CommentSection = ({ postId }) => {
       setcommentError(error.message);
     }
   };
+  console.log(totalComments);
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getPostComments/${postId}`);
+        
+        const data = await res.json();
+        console.log(data);
+        if (res.ok) {
+          settotalComments(data);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getComments();
+  }, [postId]);
   return (
     <div className="max-w-2xl mx-auto w-full p-3 ">
       {currentUser ? (

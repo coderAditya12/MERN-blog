@@ -18,7 +18,7 @@ const postSchema = mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTia-QRwqDlV-poRCVRS0WNKIR_nmF4Mq80bg&s",
     },
     category: {
       type: String,

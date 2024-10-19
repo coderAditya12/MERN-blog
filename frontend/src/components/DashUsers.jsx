@@ -2,13 +2,15 @@ import { Button, Modal, Table, TableCell } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { FaCheck, FaTimes } from "react-icons/fa";
+
 const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModel, setShowModel] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -16,7 +18,8 @@ const DashUsers = () => {
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
-          if (data.posts.length < 9) {
+          if (data.users.length < 9) {
+            // Updated line
             setShowMore(false);
           }
         }
@@ -28,13 +31,14 @@ const DashUsers = () => {
       fetchUsers();
     }
   }, [currentUser._id]);
+
   const handleShowMore = async () => {
     const startIndex = users.length;
     try {
       const res = await fetch(`/api/post/getusers?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
-        setUserPosts((prev) => [...prev, ...data.users]);
+        setUsers((prev) => [...prev, ...data.users]); // Updated line
         if (data.users.length < 9) {
           setShowMore(false);
         }
@@ -43,19 +47,22 @@ const DashUsers = () => {
       console.log(error.message);
     }
   };
+
   const handleDeleteUser = async () => {
+    // Implemented function
     try {
       const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
         method: "DELETE",
       });
-      const data = await res.json();
-      if(res.ok){
-        setUsers((prev)=>{prev.filter((user)=>user._id!==userIdToDelete)});
+      if (res.ok) {
+        setUsers(users.filter((user) => user._id !== userIdToDelete));
         setShowModel(false);
       }
-    } catch (error) {console.log(error.message)}
-
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500 md:w-full">
       {currentUser.isAdmin && users.length > 0 ? (
@@ -65,31 +72,41 @@ const DashUsers = () => {
               <Table.HeadCell>Date Created</Table.HeadCell>
               <Table.HeadCell>User image</Table.HeadCell>
               <Table.HeadCell>Username</Table.HeadCell>
+              <Table.HeadCell>Email</Table.HeadCell>
               <Table.HeadCell>Admin</Table.HeadCell>
-              <Table.HeadCell>Delete </Table.HeadCell>
+              <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
-              <Table.Body className="divide-y">
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Body className="divide-y" key={user._id}>
+                <Table.Row
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                  key={user._id}
+                >
                   <Table.Cell>
                     {new Date(user.createdAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
                     <img
                       src={user.profilePicture}
-                      alt={post.username}
-                      className="w-20 h-10 object-cover bg-gray-500"
+                      alt={user.username}
+                      className="w-10 h-10 object-cover bg-gray-500 rounded-full"
                     />
                   </Table.Cell>
                   <TableCell>{user.username}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.isAdmin}</TableCell>
+                  <TableCell>
+                    {user.isAdmin ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </TableCell>
                   <TableCell>
                     <span
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                       onClick={() => {
                         setShowModel(true);
-                        setUserIdToDelete(post._id);
+                        setUserIdToDelete(user._id);
                       }}
                     >
                       Delete

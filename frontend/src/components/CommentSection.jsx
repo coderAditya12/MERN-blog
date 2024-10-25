@@ -1,18 +1,19 @@
 import { Alert, Button, Textarea, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Comment from "./Comment";
 
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
-  const [comments, setComments] = useState("");
-  const [commentError, setcommentError] = useState(null);
+  const [comment, setComment] = useState(""); // Changed variable name for clarity
+  const [commentError, setCommentError] = useState(null);
   const [totalComments, setTotalComments] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comments.length > 200) {
+    if (comment.length > 200) {
       return;
     }
     try {
@@ -22,20 +23,20 @@ const CommentSection = ({ postId }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          content: comments,
+          content: comment,
           postId,
           userId: currentUser._id,
         }),
       });
       const data = await res.json();
       if (res.ok) {
-        setComments("");
-        setcommentError(null);
+        setComment("");
+        setCommentError(null);
         // Fetch updated comments after successful submission
         getComments();
       }
     } catch (error) {
-      setcommentError(error.message);
+      setCommentError(error.message);
     }
   };
 
@@ -54,6 +55,34 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     getComments();
   }, [postId]);
+
+  const handleLike = async (commentId) => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-in");
+        return;
+      }
+      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
+        method: "PUT",
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setTotalComments(
+          totalComments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.numberOfLikes,
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className="max-w-2xl mx-auto w-full p-3 ">
@@ -89,12 +118,12 @@ const CommentSection = ({ postId }) => {
             placeholder="Add a comment..."
             rows="3"
             maxLength="200"
-            onChange={(e) => setComments(e.target.value)}
-            value={comments}
+            onChange={(e) => setComment(e.target.value)}
+            value={comment}
           />
           <div className="flex justify-between items-center mt-5">
             <p className="text-gray-500 text-xs">
-              {200 - comments.length} characters remaining
+              {200 - comment.length} characters remaining
             </p>
             <Button outline gradientDuoTone="purpleToBlue" type="submit">
               Submit
@@ -118,7 +147,7 @@ const CommentSection = ({ postId }) => {
             </div>
           </div>
           {totalComments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment key={comment._id} comment={comment} onLike={handleLike} />
           ))}
         </>
       )}

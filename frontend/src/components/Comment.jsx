@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-const Comment = ({ comment }) => {
+import { FaRegThumbsUp } from "react-icons/fa6";
+const Comment = ({ comment, onLike }) => {
   const [user, setUser] = useState({});
   console.log(user);
   useEffect(() => {
@@ -37,6 +38,15 @@ const Comment = ({ comment }) => {
           {moment(comment.createdAt).fromNow()}
         </span>
         <p className="text-gray-500 pb-2">{comment.content}</p>
+        <div className=" ">
+          <button
+            className="text-gray-400 hover:text-blue-500"
+            type="button"
+            onClick={() => onLike(comment._id)}
+          >
+            <FaRegThumbsUp className="text-sm" />
+          </button>
+        </div>
       </div>
     </div>
   );

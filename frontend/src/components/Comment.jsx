@@ -36,6 +36,7 @@ const Comment = ({ comment }) => {
         <span className="text-gray-500 text-sm">
           {moment(comment.createdAt).fromNow()}
         </span>
+        <p className="text-gray-500 pb-2">{comment.content}</p>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import { Alert, Button, Textarea, TextInput } from "flowbite-react";
-import { set } from "mongoose";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Comment from "./Comment";
+
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comments, setComments] = useState("");
   const [commentError, setcommentError] = useState(null);
-  const [totalComments, settotalComments] = useState([]);
+  const [totalComments, setTotalComments] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,28 +31,30 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComments("");
         setcommentError(null);
+        // Fetch updated comments after successful submission
+        getComments();
       }
     } catch (error) {
       setcommentError(error.message);
     }
   };
-  console.log(totalComments);
-  useEffect(() => {
-    const getComments = async () => {
-      try {
-        const res = await fetch(`/api/comment/getPostComments/${postId}`);
-        
-        const data = await res.json();
-        console.log(data);
-        if (res.ok) {
-          settotalComments(data);
-        }
-      } catch (error) {
-        console.log(error.message);
+
+  const getComments = async () => {
+    try {
+      const res = await fetch(`/api/comment/getPostComments/${postId}`);
+      const data = await res.json();
+      if (res.ok) {
+        setTotalComments(data);
       }
-    };
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
     getComments();
   }, [postId]);
+
   return (
     <div className="max-w-2xl mx-auto w-full p-3 ">
       {currentUser ? (
@@ -71,7 +74,7 @@ const CommentSection = ({ postId }) => {
         </div>
       ) : (
         <div className="text-sm text-teal-500 my-5 flex gap-1">
-          You mush be signed in to comment.
+          You must be signed in to comment.
           <Link to={`/sign-in`} className="text-blue-500 hover:underline">
             Sign In
           </Link>
@@ -103,6 +106,21 @@ const CommentSection = ({ postId }) => {
             </Alert>
           )}
         </form>
+      )}
+      {totalComments.length === 0 ? (
+        <p className="text-sm my-5">No comments yet!</p>
+      ) : (
+        <>
+          <div className="text-sm my-5 flex items-center gap-1">
+            <p className="text-sm my-5 flex items-center">Comments</p>
+            <div className="border border-gray-400 py-1 px-2 rounded-sm ">
+              <p>{totalComments.length}</p>
+            </div>
+          </div>
+          {totalComments.map((comment) => (
+            <Comment key={comment._id} comment={comment} />
+          ))}
+        </>
       )}
     </div>
   );

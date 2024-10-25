@@ -81,7 +81,7 @@ const signOut = (req, res, next) => {
   }
 };
 const getUsers = async (req, res, next) => {
-  console.log(req.user)
+  console.log(req.user);
   if (!req.user.Admin) {
     return next(errorHandler(403, "You are not allowed to see all users."));
   }
@@ -113,6 +113,20 @@ const getUsers = async (req, res, next) => {
     res
       .status(200)
       .json({ users: userWithoutPassword, totalUsers, lastMonthUsers });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
-module.exports = { test, updateUser, deleteUser, signOut, getUsers };
+const getUser = async (req, res, next) => {
+  try {
+    const client = await user.findById(req.params.userId);
+    if (!client) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const { password, ...rest } = client._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { test, updateUser, deleteUser, signOut, getUsers, getUser };

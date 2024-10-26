@@ -77,7 +77,7 @@ const editComment = async (req, res, next) => {
     next(error);
   }
 };
-const deleteComment = async () => {
+const deleteComment = async (req,res,next) => {
   try {
     const isComment = await comment.findById(req.params.commentId);
     if (!isComment) {

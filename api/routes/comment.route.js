@@ -12,5 +12,5 @@ router.post("/create", verifyToken, createComment);
 router.get("/getPostComments/:postId", getPostComment);
 router.put("/likeComment/:commentId", verifyToken, likeComment);
 router.put("/editComment/:commentId", verifyToken, editComment);
-router.put("/deleteComment/:commentId", verifyToken, deleteComment);
+router.delete("/deleteComment/:commentId", verifyToken, deleteComment);
 module.exports = router;

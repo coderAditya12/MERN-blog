@@ -56,4 +56,25 @@ const likeComment = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { createComment, getPostComment, likeComment };
+const editComment = async (req, res, next) => {
+  try {
+    const isComment = await comment.findById(req.params.commentId);
+    if (!isComment) {
+      return next(errorHandler(404, "Comment not found"));
+    }
+    if (isComment.userId !== req.user.id && !req.user.isAdmin) {
+      return next(
+        errorHandler(403, "you are not allowed to edit this comment")
+      );
+    }
+    const editedcomment = await comment.findByIdAndUpdate(
+      req.params.commentId,
+      { content: req.body.content },
+      { new: true }
+    );
+    res.status(200).json(editedcomment);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { createComment, getPostComment, likeComment, editComment };

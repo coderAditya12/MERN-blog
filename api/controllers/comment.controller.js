@@ -62,7 +62,7 @@ const editComment = async (req, res, next) => {
     if (!isComment) {
       return next(errorHandler(404, "Comment not found"));
     }
-    if (isComment.userId !== req.user.id && !req.user.isAdmin) {
+    if (isComment.userId !== req.user.id && !req.user.Admin) {
       return next(
         errorHandler(403, "you are not allowed to edit this comment")
       );
@@ -77,4 +77,25 @@ const editComment = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { createComment, getPostComment, likeComment, editComment };
+const deleteComment = async () => {
+  try {
+    const isComment = await comment.findById(req.params.commentId);
+    if (!isComment) {
+      return next(errorHandler(404, "Comment not found"));
+    }
+    if (isComment.userId !== req.user.id && !req.user.Admin) {
+      return errorHandler(403, "you are not allowed to delete this comment");
+    }
+    await comment.findByIdAndDelete(req.params.commentId);
+    res.status(200).json("comment has been deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = {
+  createComment,
+  getPostComment,
+  likeComment,
+  editComment,
+  deleteComment,
+};

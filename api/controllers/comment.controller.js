@@ -31,20 +31,28 @@ const getPostComment = async (req, res, next) => {
 };
 const likeComment = async (req, res, next) => {
   try {
-    const comment = await Comment.findById(req.params.commentId);
-    if (!comment) {
+    const commentDoc = await comment.findById(req.params.commentId);
+    if (!commentDoc) {
       return next(errorHandler(404, "Comment not found"));
     }
-    const userIndex = comment.likes.indexOf(req.user.id);
+
+    const userIndex = commentDoc.likes.indexOf(req.user.id);
     if (userIndex === -1) {
-      comment.numberOfLikes += 1;
-      comment.likes.push(req.user.id);
+      // Like the comment
+      commentDoc.numberOflikes += 1; // Note: lowercase 'l' to match schema
+      commentDoc.likes.push(req.user.id);
     } else {
-      comment.numberOfLikes -= 1;
-      comment.likes.splice(userIndex, 1);
+      // Unlike the comment
+      commentDoc.numberOflikes -= 1; // Note: lowercase 'l' to match schema
+      commentDoc.likes.splice(userIndex, 1);
     }
-    res.status(200).json(comment);
+
+    // Save the changes to database
+    await commentDoc.save();
+
+    res.status(200).json(commentDoc);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

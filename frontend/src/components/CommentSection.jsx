@@ -73,7 +73,7 @@ const CommentSection = ({ postId }) => {
               ? {
                   ...comment,
                   likes: data.likes,
-                  numberOfLikes: data.numberOfLikes,
+                  numberOflikes: data.numberOflikes,
                 }
               : comment
           )

@@ -23,6 +23,7 @@ const UpdatePost = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
   const {currentUser} = useSelector((state)=>state.user);
+  console.log(formData)
 
   useEffect(() => {
     try {
@@ -86,7 +87,7 @@ const UpdatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+      const res = await fetch(`/api/post/updatepost/${postId}/${currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiDocumentText, HiOutlineUserGroup, HiUserCircle } from "react-icons/hi";
+import {
+  HiArrowSmRight,
+  HiDocumentText,
+  HiOutlineUserGroup,
+  HiUserCircle,
+  HiAnnotation,
+} from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOutSuccess } from "../redux/user/userSlice";
@@ -11,7 +17,7 @@ const DashSidebar = () => {
   const navigate = useNavigate();
   const [tab, setTab] = useState("");
   const dispatch = useDispatch();
-  const {currentUser} = useSelector(state=>state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -48,7 +54,7 @@ const DashSidebar = () => {
             active={tab === "profile"}
             icon={HiUserCircle}
             onClick={() => handleItemClick("profile")}
-            label={currentUser.isAdmin ?"Admin":"User"}
+            label={currentUser.isAdmin ? "Admin" : "User"}
             as="div"
           >
             Profile
@@ -65,15 +71,26 @@ const DashSidebar = () => {
             </Link>
           )}
           {currentUser.isAdmin && (
-            <Link to="/dashboard?tab=users">
-              <Sidebar.Item
-                active={tab === "users"}
-                icon={HiOutlineUserGroup}
-                as="div"
-              >
-                users
-              </Sidebar.Item>
-            </Link>
+            <>
+              <Link to="/dashboard?tab=users">
+                <Sidebar.Item
+                  active={tab === "users"}
+                  icon={HiOutlineUserGroup}
+                  as="div"
+                >
+                  users
+                </Sidebar.Item>
+              </Link>
+              <Link to="/dashboard?tab=comments">
+                <Sidebar.Item
+                  active={tab === "comments"}
+                  icon={HiAnnotation}
+                  as="div"
+                >
+                  Comments
+                </Sidebar.Item>
+              </Link>
+            </>
           )}
 
           <Sidebar.Item

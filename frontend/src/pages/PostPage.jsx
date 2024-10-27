@@ -91,7 +91,7 @@ const PostPage = () => {
       <CommentSection postId={post._id} />
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5 ">Recent Articles</h1>
-        <div className="flex flex-wrap gap-5 mt-5 justify-center">{
+        <div className="flex flex-wrap gap-5 mt-5 justify-center md:w-full py-2">{
           recentPost && recentPost.map((post)=>(
             <PostCard key={post._id} post={post} />
           ))

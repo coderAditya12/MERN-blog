@@ -5,7 +5,8 @@
   "devDependencies": {},
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"yarn add && yarn add --prefix frontend && yarn build --prefix frontend "
   },
   "keywords": [],
   "author": "",

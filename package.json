@@ -4,16 +4,13 @@
   "main": "./api/index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon api/index.js",
     "start": "node api/index.js",
-    "build": "cd frontend && yarn install && yarn build",
-    "install-frontend": "cd frontend && yarn install"
+    "build": "yarn install && cd frontend && yarn install && yarn build",
+    "dev": "nodemon api/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",

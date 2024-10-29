@@ -19,7 +19,7 @@ mongoose
     console.log(err);
   });
 const cors = require("cors");
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 //routes
 const app = express();

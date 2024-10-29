@@ -6,7 +6,7 @@ import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import DashBoard from "./pages/DashBoard";
 import SignIn from "./pages/SignIn";
-import FooterCom from "./components/footer";
+import FooterCom from "./components/FooterCom";
 import PrivateRoute from "./components/PrivateRoute";
 import OnlyAdminRoute from "./components/OnlyAdminRoute";
 import CreatePost from "./pages/CreatePost";

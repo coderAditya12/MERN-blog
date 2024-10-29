@@ -11,13 +11,22 @@ dotenv.config();
 
 //mongoDB connected
 mongoose
-  .connect(process.env.MONGO)
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("database connected");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Error connecting to database:", err);
   });
+
+// mongoose
+//   .connect(process.env.MONGO)
+//   .then(() => {
+//     console.log("database connected");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 const cors = require("cors");
 // const __dirname = path.resolve();
 

@@ -5,9 +5,9 @@ const create = async (req, res, next) => {
   console.log(req.user);
   console.log(req.user.Admin);
   try {
-    if (!req.user || !req.user.Admin) {
-      return next(errorHandler(403, "You are not allowed to create a post"));
-    }
+    // if (!req.user || !req.user.Admin) {
+    //   return next(errorHandler(403, "You are not allowed to create a post"));
+    // }
     if (!req.body.title || !req.body.content) {
       return next(errorHandler(400, "Please provide all required fields"));
     }
@@ -68,7 +68,7 @@ const getposts = async (req, res, next) => {
   }
 };
 const deletepost = async (req, res, next) => {
-  if (!req.user.Admin || req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to delete this post."));
   }
   try {
@@ -79,7 +79,7 @@ const deletepost = async (req, res, next) => {
   }
 };
 const UpdatePost = async (req, res, next) => {
-  if (!req.user.Admin || req.user.id !== req.params.userId) {
+  if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to update this post."));
   }
   try {

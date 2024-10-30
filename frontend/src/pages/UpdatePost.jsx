@@ -42,7 +42,9 @@ const UpdatePost = () => {
         }
       };
       fetchPost();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message);
+    }
   }, [postId]);
 
   const handleUploadImage = async () => {

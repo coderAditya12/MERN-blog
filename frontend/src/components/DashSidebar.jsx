@@ -71,7 +71,7 @@ const DashSidebar = () => {
           >
             Profile
           </Sidebar.Item>
-          {currentUser.isAdmin && (
+          
             <Link to="/dashboard?tab=posts">
               <Sidebar.Item
                 active={tab === "posts"}
@@ -81,7 +81,7 @@ const DashSidebar = () => {
                 Posts
               </Sidebar.Item>
             </Link>
-          )}
+          
           {currentUser.isAdmin && (
             <>
               <Link to="/dashboard?tab=users">

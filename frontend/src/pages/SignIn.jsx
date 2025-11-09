@@ -8,7 +8,6 @@ import {
   signInSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { FaCloudShowersHeavy } from "react-icons/fa";
 import OAuth from "../components/OAuth";
 
 const SignIn = () => {

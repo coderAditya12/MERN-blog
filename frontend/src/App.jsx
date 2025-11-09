@@ -21,7 +21,7 @@ function App() {
       <ScrollToTop />
       <Header />
       <Routes>
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<Home />} />
